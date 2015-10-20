@@ -1,0 +1,3 @@
+describe('Skuriken', function(){
+    var $;
+});

@@ -1,7 +1,7 @@
 {
   "name": "shuriken",
   "version": "1.0.0",
-  "description": "Handy Utilities for a Node Ninja",
+  "description": "Tiny utilities for a Node ninja",
   "main": "index.js",
   "directories": {
     "test": "tests"
@@ -11,16 +11,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Jan-Osch/shuriken"
+    "url": "https://github.com/Jan-Osch/Shuriken"
   },
   "keywords": [
     "Ninja",
-    "Skuriken"
+    "Utility"
   ],
   "author": "Jan-Osch",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Jan-Osch/shuriken/issues"
+    "url": "https://github.com/Jan-Osch/Shuriken/issues"
   },
-  "homepage": "https://github.com/Jan-Osch/shuriken"
+  "homepage": "https://github.com/Jan-Osch/Shuriken"
 }
