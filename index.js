@@ -2,30 +2,30 @@
 //     MIT license.
 
 /**
- * Assigns value of nested of source to destination.
- * Even if the nested value evaluates to false it will be assigned to the destination
- * If alternative value is provided it will be assigned to the destination.
+ * Returns value of a nested property of source object if it exists.
+ * Even if the nested property evaluates to false it will be returned.
+ * If the nested property does not exist undefined will be returned.
+ * If alternative value is provided it will returned if the nested property does not exits.
  *
- * @param destination
  * @param source {Object}
  * @param keys {Array / String} can be either an Array of Strings, or '.' separated String.
- * @param alternative {=} value that will be assigned to destination if nested field does not exist
+ * @param alternative {=} value that will returned if nested property does not exist
  */
-function bindNested(destination, source, keys, alternative) {
+function getNested(source, keys, alternative) {
     var previous = source || alternative;
-    if (keys instanceof String) {
-        keys = keys.split('.')
+    if (typeof keys == 'string') {
+        keys = keys.split('.');
     }
     for (var i = 0; i < keys.length; i++) {
         if (!previous.hasOwnProperty(keys[i])) {
             if (alternative) {
-                destination = alternative;
+                return alternative;
             }
-            return;
+            return undefined;
         }
         previous = previous[keys[i]];
     }
-    destination = previous;
+    return previous;
 }
 
 /**
@@ -36,7 +36,7 @@ function bindNested(destination, source, keys, alternative) {
  */
 function hasNested(source, keys) {
     var previous = source || {};
-    if (keys instanceof String) {
+    if (typeof keys == 'string') {
         keys = keys.split('.')
     }
     for (var i = 0; i < keys.length; i++) {
@@ -49,5 +49,6 @@ function hasNested(source, keys) {
 }
 
 module.exports = {
-    bindNested : bindNested
+    getNested: getNested,
+    hasNested: hasNested
 };
