@@ -31,7 +31,7 @@ result = x.getNested(object, 'x.y.z', result); // 'previous'
 ```
 
 #### hasNested
-###### x.getNested( object, keys)
+###### x.hasNested( object, keys)
 
 Returns true if **object** has a nested property, false otherwise. Argument **keys** can be either an array of strings, or a single dot '.'-separated string.
  Object properties will be accessed in the same order as in **keys**.
