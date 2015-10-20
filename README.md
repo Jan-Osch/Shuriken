@@ -1,2 +1,4 @@
 # shuriken
-Utility belt for a node ninja
+Tiny utilities for a Node ninja
+
+
