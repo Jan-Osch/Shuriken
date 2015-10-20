@@ -21,7 +21,7 @@ var object ={
 
 var result = x.getNested(object, ['a', 'b', 'c']); // 'data'
 
-var result = x.getNested(object, 'a.b.c'); //'data'
+var result = x.getNested(object, 'a.b.c'); // 'data'
 
 var result = x.getNested(object, 'x.y.z'); // undefined
 
