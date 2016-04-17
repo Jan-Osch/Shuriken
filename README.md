@@ -29,7 +29,7 @@ $ npm run benchmark
 /**
 * @param {Object} source       source object
 * @param {String} path         path without first dot e.g. "response.http.statusCode"
-* @param {String=} sourceName  if provided, any caught error will be logged to console
+* @param {String} [sourceName]  if provided, any caught error will be logged to console
 * @returns {*}                 value under the source.path or undefined
 */
 function reach(source, path, sourceName){..}
