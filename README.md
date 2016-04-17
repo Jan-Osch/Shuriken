@@ -24,7 +24,7 @@ To test the performance with micro-benchmark run:
 $ npm run benchmark
 ```
 
-#### Signature
+## Signature
 ```js
 /**
 * @param {Object} source       source object
@@ -36,6 +36,7 @@ function reach(source, path, sourceName){..}
 ```
 
 ## examples:
+
 #### Simple reach
 ```js
 var object ={
