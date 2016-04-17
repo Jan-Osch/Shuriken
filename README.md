@@ -8,7 +8,7 @@ $ npm install reach-deep
 
 ## Require
 ```js
-var reach = require("reachDeep");
+var reach = require("reach-deep");
 ```
 
 ## Description:
@@ -16,6 +16,13 @@ var reach = require("reachDeep");
 Returns the value of a nested property of source object if it exists.
 Even if the nested property evaluates to false it will be returned.
 If the nested property does not exist, undefined will be returned.
+
+## Benchmark
+Is about 4 times faster than "reach" module.
+To test the performance with micro-benchmark run:
+```
+$ npm run benchmark
+```
 
 #### Signature
 ```js
