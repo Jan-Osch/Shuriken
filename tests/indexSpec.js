@@ -1,4 +1,4 @@
-describe('reach', function () {
+describe('reachDeep', function () {
     var reach;
     beforeEach(function () {
         reach = require('../src/index');

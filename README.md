@@ -1,14 +1,14 @@
-# reach
+# reach-deep
 Tired of `cannot read property "xyz" of undefined` ? This tiny utility helps to reach nested objects.
 
 ## Install
 ```
-$ npm install reach
+$ npm install reach-deep
 ```
 
 ## Require
 ```js
-var reach = require(reach);
+var reach = require("reachDeep");
 ```
 
 ## Description:
