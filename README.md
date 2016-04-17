@@ -35,7 +35,7 @@ $ npm run benchmark
 function reach(source, path, sourceName){..}
 ```
 
-## examples:
+## Examples:
 
 #### Simple reach
 ```js
