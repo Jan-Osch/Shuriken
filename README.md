@@ -1,16 +1,33 @@
-# shuriken
-Tiny utilities for a Node ninja
+# reach
+Tired of `cannot read property "xyz" of undefined` ? This tiny utility helps to reach nested objects.
 
-## usage
+## Install
+```
+$ npm install reach
+```
 
-#### getNested
-###### x.getNested( object, keys [, alternative ])
-
-Returns Nested property of the **object** if it exists. Argument **keys** can be either an array of strings, or a single dot '.'-separated string.
- Object properties will be accessed in the same order as in **keys**. If **alternative** value is provided it will be returned if the nested property does not extist.
+## Require
 ```js
-var x = require('shuriken');
+var reach = require(reach);
+```
 
+## Description:
+
+Returns the value of a nested property of source object if it exists.
+Even if the nested property evaluates to false it will be returned.
+If the nested property does not exist, undefined will be returned.
+
+#### Signature
+```js
+function reach(source, path, sourceName){..}
+```
+ * @param {Object} source       source object
+ * @param {String} path         path without first dot e.g. "response.http.statusCode"
+ * @param {String=} sourceName  if provided, any caught error will be logged to console
+ * @returns {*}                 value under the source.path or undefined
+## examples:
+#### Simple reach
+```js
 var object ={
    a: {
       b: {
@@ -19,38 +36,33 @@ var object ={
    }
 };
 
-var result = x.getNested(object, ['a', 'b', 'c']); // 'data'
-
-var result = x.getNested(object, 'a.b.c'); // 'data'
-
-var result = x.getNested(object, 'x.y.z'); // undefined
-
-var result = 'previous';
-result = x.getNested(object, 'x.y.z', result); // 'previous'
-
+var result = reach(object, 'a.b.c'); // 'data'
+var resultNotExisting = reach(object, 'a.b.c.d.e.f'); // undefined
 ```
 
-#### hasNested
-###### x.hasNested( object, keys)
-
-Returns true if **object** has a nested property, false otherwise. Argument **keys** can be either an array of strings, or a single dot '.'-separated string.
- Object properties will be accessed in the same order as in **keys**.
+#### Complex reach
 ```js
-var x = require('shuriken');
-
-var object ={
-   a: {
-      b: {
-         c : 'data'
-      }
-   }
-};
-
-x.hasNested(object, ['a', 'b', 'c']); // true
-
-x.hasNested(object, 'a.b.c'); // true
-
-x.hasNested(object, 'x.y.z'); // false
-
+var mock = {
+        a: function () {
+            return {
+                b: {
+                    c: [
+                        {},
+                        {
+                            "d": {
+                                e: 'expected'
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+    };
+var result = reach(mock, 'a().b.c[1]["d"].e'); // 'expected'
 ```
 
+#### Reach verbose
+```js
+var mock = {};
+reach(mock, 'a().b.c[1]["d"].e', 'mock'); // logs to console: TypeError['mock.a is not a function']
+```

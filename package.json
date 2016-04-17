@@ -1,7 +1,7 @@
 {
-  "name": "shuriken",
+  "name": "reach",
   "version": "1.0.0",
-  "description": "Tiny utilities for a Node ninja",
+  "description": "No more cannot read property xyz of undefined",
   "main": "index.js",
   "directories": {
     "test": "tests"

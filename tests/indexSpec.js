@@ -1,154 +1,78 @@
-describe('Skuriken', function () {
-    var x;
+describe('reach', function () {
+    var reach;
     beforeEach(function () {
-        x = require('../index');
+        reach = require('../src/index');
     });
-    it('The module is defined', function () {
-        expect(x).toBeDefined();
+    it('The module is defined, exports are properly defined', function () {
+        expect(reach).toBeDefined();
+        expect(reach).toEqual(jasmine.any(Function));
     });
-    it('getNested returns nested property of object if it exists', function(){
+    it('returns nested property of object if it exists', function () {
         var expected = 'expected';
         var mock = {
             a: {
                 b: {
                     c: {
-                        d:{
+                        d: {
                             e: expected
                         }
                     }
                 }
             }
         };
-        var actual = 'not-expected';
-        actual = x.getNested(mock, ['a', 'b', 'c', 'd', 'e']);
-        expect(x.getNested).toBeDefined();
+        var actual = reach(mock, 'a.b.c.d.e');
         expect(actual).toBeDefined();
         expect(actual).toEqual(expected);
     });
 
-    it('getNested returns nested property of object if it exists, for single string keys parameter', function(){
-        var expected = 'expected';
+    it('returns a nested property, even if it evaluates to false', function () {
         var mock = {
             a: {
                 b: {
                     c: {
-                        d:{
-                            e: expected
-                        }
-                    }
-                }
-            }
-        };
-        var actual = 'not-expected';
-        actual = x.getNested(mock, 'a.b.c.d.e');
-        expect(actual).toBeDefined();
-        expect(actual).toEqual(expected);
-    });
-
-    it('getNested returns undefined if nested property does not exist', function(){
-        var mock = {
-            a: {
-                b: {
-                    c: {
-                        d:{
-                            f: false
-                        }
-                    }
-                }
-            }
-        };
-        var actual = 'not-expected';
-        actual = x.getNested(mock, ['a', 'b', 'c', 'd', 'e']);
-        expect(actual).not.toBeDefined();
-    });
-    it('getNested returns alternative if the nested property does not exist, but alternative is provided', function(){
-        var mock = {
-            a: {
-                b: {
-                    c: {
-                        d:{
-                            f: false
-                        }
-                    }
-                }
-            }
-        };
-        var actual = 'actually-expected';
-        var expected = actual;
-        actual = x.getNested(mock, ['a', 'b', 'c', 'd', 'e'], actual);
-        expect(actual).toBeDefined();
-        expect(actual).toEqual(expected);
-    });
-    it('hasNested returns true when the object has a nested property, even if it evaluates to false', function(){
-        var mock = {
-            a: {
-                b: {
-                    c: {
-                        d:{
+                        d: {
                             e: false
                         }
                     }
                 }
             }
         };
-        var expected = true;
-        var actual;
-        actual = x.hasNested(mock, ['a', 'b', 'c', 'd', 'e']);
+        var actual = reach(mock, 'a.b.c.d.e');
         expect(actual).toBeDefined();
-        expect(actual).toEqual(expected);
+        expect(actual).toEqual(false);
     });
-    it('hasNested returns true when the object has a nested property, even if it is undefined', function(){
+
+    it('returns a nested property when path contains array index, object property access and function calls', function () {
+        const expected = 'expected';
         var mock = {
-            a: {
-                b: {
-                    c: {
-                        d:{
-                            e: undefined
-                        }
+            a: function () {
+                return {
+                    b: {
+                        c: [
+                            {},
+                            {
+                                "d": {
+                                    e: expected
+                                }
+                            }
+                        ]
                     }
                 }
             }
         };
-        var expected = true;
-        var actual;
-        actual = x.hasNested(mock, ['a', 'b', 'c', 'd', 'e']);
+        var actual = reach(mock, 'a().b.c[1]["d"].e');
         expect(actual).toBeDefined();
         expect(actual).toEqual(expected);
     });
-    it('hasNested returns true when the object has a nested property, when keys are a single string', function(){
+
+    it('if nested property does not exist, and sourceName is provided it will log error to console with proper name', function () {
+        const expected = 'expected';
         var mock = {
-            a: {
-                b: {
-                    c: {
-                        d:{
-                            e: 'has'
-                        }
-                    }
-                }
-            }
+            a: {}
         };
-        var expected = true;
-        var actual;
-        actual = x.hasNested(mock, 'a.b.c.d.e');
-        expect(actual).toBeDefined();
-        expect(actual).toEqual(expected);
+        spyOn(console, 'log');
+        reach(mock, 'a().b.c[1]["d"].e', 'mock');
+        expect(console.log).toHaveBeenCalledWith(new TypeError('mock.a is not a function'));
     });
-    it('hasNested returns false when the object has not the nested property', function(){
-        var mock = {
-            a: {
-                b: {
-                    c: {
-                        d:{
-                            f: 'has not'
-                        }
-                    }
-                }
-            }
-        };
-        var expected = false;
-        var actual;
-        actual = x.hasNested(mock, 'a.b.c.d.e');
-        expect(actual).toBeDefined();
-        expect(actual).toEqual(expected);
-    });
+
 });
