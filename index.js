@@ -48,7 +48,20 @@ function hasNested(source, keys) {
     return true;
 }
 
+function getNestedNice(source, path, verbose) {
+    var result;
+    try {
+        eval('result=source.' + path);
+    } catch (err) {
+        if (verbose) {
+            console.log(err);
+        }
+    }
+    return result;
+}
+
 module.exports = {
     getNested: getNested,
-    hasNested: hasNested
+    hasNested: hasNested,
+    getNestedNice: getNestedNice
 };

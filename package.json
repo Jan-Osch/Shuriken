@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/Jan-Osch/Shuriken/issues"
   },
-  "homepage": "https://github.com/Jan-Osch/Shuriken"
+  "homepage": "https://github.com/Jan-Osch/Shuriken",
+  "devDependencies": {
+    "lodash": "^4.11.1"
+  }
 }
